@@ -20,8 +20,7 @@
 	</head>
 
 	<body>
-		<? include 'php/navigation.php'; ?>
-
+		<div id="top-nav"></div>
 		<div class="container">
 
 			<form class="form-signin" role="form">
@@ -38,5 +37,21 @@
 
 		</div>
 		<!-- /container -->
+				<!-- add jQuery before adding the backstretch plugin -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+
+		<!-- Stretches the background image as per screen size -->
+		<!-- add the backstretch plugin -->
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+
+		<script type='text/javascript'>
+			$(window).load(function() {
+				$.backstretch("http://www.burn60.com/blog/wp-content/uploads/2013/12/morning-workout.jpg");
+				$("#top-nav").load("inc/navigation.html", function() {
+					$(".index").addClass("active");
+				});
+			});
+		</script>
 	</body>
 </html>
