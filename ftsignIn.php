@@ -20,6 +20,7 @@
 	</head>
 
 	<body>
+		<? include 'php/navigation.php'; ?>
 
 		<div class="container">
 
