@@ -48,7 +48,7 @@
 		<script type='text/javascript'>
 			$(window).load(function() {
 				$.backstretch("http://www.burn60.com/blog/wp-content/uploads/2013/12/morning-workout.jpg");
-				$("#top-nav").load("inc/navigation.html", function() {
+				$("#top-nav").load("inc/navigation.php, function() {
 					$(".index").addClass("active");
 				});
 			});

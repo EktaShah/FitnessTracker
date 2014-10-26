@@ -19,16 +19,13 @@
 
 	</head>
 	<body>
-		<?include 'inc/_nav.php'; ?>
-		<header>
-			<div id="top-nav"></div>
-			<div class="container">
+		
 
-				<h2><i>Exercise Log</i></h2>
-			</div>
-		</header>
-		<div class="container content">
-			<a class="btn btn-success" data-toggle="modal" data-target="#myModal" href="ExerciselogForm.html"> <i class="glyphicon glyphicon-plus"></i>Add</a>
+			<h2><i>Exercise Log</i></h2>
+			<div id="top-nav"></div>
+			<div class="container"></div>
+			<div class="container content">
+			<a class="btn btn-success" data-toggle="modal" data-target="#myModal" href="ExerciselogForm.php"> <i class="glyphicon glyphicon-plus"></i>Add</a>
 			<!-- Modal -->
 			<div class="modal fade" id="myModal" tabindex="-1" >
 				<div class="modal-dialog">
@@ -87,7 +84,7 @@
 		<script type='text/javascript'>
 			$(window).load(function() {
 
-				$("#top-nav").load("inc/navigation.html", function() {
+				$("#top-nav").load("inc/navigation.php", function() {
 					$(".index").addClass("active");
 				});
 				$(document).ready(function() {

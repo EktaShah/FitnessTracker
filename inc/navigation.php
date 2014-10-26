@@ -5,7 +5,7 @@
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
 
 			</button>
-			<a class="navbar-brand" href="index.html">FitnessTracker</a>
+			<a class="navbar-brand" href="index.php">FitnessTracker</a>
 		</div>
 		<div class="collapse navbar-collapse">
 
@@ -29,7 +29,7 @@
 					<a href="#">Make a Group</a>
 				</li>
 				<li>
-					<a href="ftsignIn.html">Sign In</a>
+					<a href="ftsignIn.php">Sign In</a>
 				</li>
 			</ul>
 		</div><!--/.nav-collapse -->

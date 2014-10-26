@@ -16,8 +16,7 @@
 		
 	</head>
 	<body>
-		<? include 'inc/_nav.php'; ?>
-	<div id="top-nav"></div>
+		<div id="top-nav"></div>
 		<div class="container">
 			<br>
 			<br>
@@ -33,7 +32,7 @@
 			<p align="left">
 
 				<br>
-				<a href="ftsignIn.html" class="btn btn-default" role="button">Login</a>
+				<a href="ftsignIn.php" class="btn btn-default" role="button">Login</a>
 				<!-- <button type="button" class="btn btn-default" href="ftsignIn.php" >
 					Login
 				</button> -->
@@ -61,8 +60,8 @@
 		<script type='text/javascript'>
 			$(window).load(function() {
 				$.backstretch("http://www.burn60.com/blog/wp-content/uploads/2013/12/morning-workout.jpg");
-				$("#top-nav").load("inc/navigation.html", function() {
-					$("<? include 'inc/_nav.php'; ?>").addClass("active");
+				$("#top-nav").load("inc/navigation.php", function() {
+					$(".index").addClass("active");
 				});
 			});
 		</script>

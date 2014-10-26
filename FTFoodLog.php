@@ -19,8 +19,7 @@
 
 	</head>
 	<body>
-		<? include 'inc/_nav.php'; ?>
-			<header>
+		
 		<div id="top-nav"></div>
 		<div class="container">
 
@@ -28,7 +27,7 @@
 			</div>
 			</header>
 			<div class="container content">
-				<a class="btn btn-success" data-toggle="modal" data-target="#myModal" href="FoodLogForm.html"> <i class="glyphicon glyphicon-plus"></i>Add</a>
+				<a class="btn btn-success" data-toggle="modal" data-target="#myModal" href="FoodLogForm.php"> <i class="glyphicon glyphicon-plus"></i>Add</a>
 				<!-- Modal -->
 				<div class="modal fade" id="myModal" tabindex="-1" >
 					<div class="modal-dialog">
@@ -91,7 +90,7 @@
 			<script type='text/javascript'>
 				$(window).load(function() {
 
-					$("#top-nav").load("inc/navigation.html", function() {
+					$("#top-nav").load("inc/navigation.php", function() {
 						$(".index").addClass("active");
 					});
 					$(document).ready(function() {
