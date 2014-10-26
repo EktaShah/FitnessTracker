@@ -16,6 +16,7 @@
 		
 	</head>
 	<body>
+		<? include 'inc/_nav.php'; ?>
 	<div id="top-nav"></div>
 		<div class="container">
 			<br>
@@ -61,7 +62,7 @@
 			$(window).load(function() {
 				$.backstretch("http://www.burn60.com/blog/wp-content/uploads/2013/12/morning-workout.jpg");
 				$("#top-nav").load("inc/navigation.html", function() {
-					$(".index").addClass("active");
+					$("<? include 'inc/_nav.php'; ?>").addClass("active");
 				});
 			});
 		</script>
