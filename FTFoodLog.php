@@ -19,10 +19,14 @@
 
 	</head>
 	<body>
+		<? include 'inc/_nav.php'; ?>
+			<header>
 		<div id="top-nav"></div>
 		<div class="container">
 
 			<h2><i>Food Log</i></h2>
+			</div>
+			</header>
 			<div class="container content">
 				<a class="btn btn-success" data-toggle="modal" data-target="#myModal" href="FoodLogForm.html"> <i class="glyphicon glyphicon-plus"></i>Add</a>
 				<!-- Modal -->

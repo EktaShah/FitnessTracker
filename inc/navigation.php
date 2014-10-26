@@ -14,10 +14,10 @@
 					<a href="index.php">Home</a>
 				</li> -->
 				<li>
-					<a href="#">Food InTake</a>
+					<a href="FTFoodLog.php">Food InTake</a>
 				</li>
 				<li>
-					<a href="FTExerciseLog.html">Exercise Log</a>
+					<a href="FTExerciseLog.">Exercise Log</a>
 				</li>
 				<li>
 					<a href="#">BMI Calculator</a>
