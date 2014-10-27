@@ -19,11 +19,11 @@
 
 	</head>
 	<body>
-		
-
+		<div id="top-nav"></div>
+		<div class="container">
 			<h2><i>Exercise Log</i></h2>
-			<div id="top-nav"></div>
-			<div class="container"></div>
+			</div>
+			</header>
 			<div class="container content">
 			<a class="btn btn-success" data-toggle="modal" data-target="#myModal" href="ExerciselogForm.php"> <i class="glyphicon glyphicon-plus"></i>Add</a>
 			<!-- Modal -->

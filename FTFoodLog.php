@@ -22,7 +22,7 @@
 		
 		<div id="top-nav"></div>
 		<div class="container">
-
+            <header>
 			<h2><i>Food Log</i></h2>
 			</div>
 			</header>
