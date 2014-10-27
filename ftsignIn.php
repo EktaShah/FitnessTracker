@@ -13,16 +13,18 @@
 
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+        
 		<!-- Custom styles for this template -->
 		<link href="css/signin.css" rel="stylesheet">
 
 	</head>
 
 	<body>
-		<div id="top-nav"></div>
+		<div id="top-nav">
+		 <? include __DIR__ . '/inc/navigation.php'; ?>
+		 </div>
 		<div class="container">
-
+                
 			<form class="form-signin" role="form">
 				<h2 class="form-signin-heading">Please sign in</h2>
 				<input type="email" class="form-control" placeholder="Email address" required autofocus>
@@ -48,9 +50,9 @@
 		<script type='text/javascript'>
 			$(window).load(function() {
 				$.backstretch("http://www.burn60.com/blog/wp-content/uploads/2013/12/morning-workout.jpg");
-				$("#top-nav").load("inc/navigation.php, function() {
-					$(".index").addClass("active");
-				});
+				// $("#top-nav").load("inc/navigation.php, function() {
+					// $(".index").addClass("active");
+				// });
 			});
 		</script>
 	</body>
