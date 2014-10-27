@@ -16,7 +16,9 @@
 		
 	</head>
 	<body>
-		<div id="top-nav"></div>
+		<div id="top-nav">
+            <? include __DIR__ . '/inc/navigation.php'; ?>
+        </div>
 		<div class="container">
 			<br>
 			<br>
@@ -60,9 +62,9 @@
 		<script type='text/javascript'>
 			$(window).load(function() {
 				$.backstretch("http://www.burn60.com/blog/wp-content/uploads/2013/12/morning-workout.jpg");
-				$("#top-nav").load("inc/navigation.php", function() {
-					$(".index").addClass("active");
-				});
+				// $("#top-nav").load("inc/navigation.php", function() {
+					// $(".index").addClass("active");
+				// });
 			});
 		</script>
 	</body>

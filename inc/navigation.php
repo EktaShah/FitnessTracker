@@ -1,5 +1,6 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">
+        <!--<base href="~/">-->
 
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -14,8 +15,8 @@
 					<a href="index.php">Home</a>
 				</li> -->
 				<li>
-					<a href="Controllers/index.php?action=foodIndex">Food InTake</a>
-				</li>
+					<a href="FTFoodLog.php?action=index">Food Log</a>
+				</li>   
 				<li>    
 					<a href="FTExerciseLog.php">Exercise Log</a>
 				</li>

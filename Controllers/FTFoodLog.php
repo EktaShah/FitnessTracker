@@ -14,7 +14,7 @@ switch ($action . '_' . $method) {
 		//	Proccess input
 		break;
 	case 'edit_GET':
-		$model = Food::Get($_REQUEST['id']);
+		#$model = Food::Get($_REQUEST['id']);
 		$view = "food/edit.php";		
 		break;
 	case 'edit_POST':
@@ -28,8 +28,8 @@ switch ($action . '_' . $method) {
 		break;
 	case 'index_GET':
 	default:
-		$model = Food::Get();
-		$view = 'food/index.php';		
+		#$model = Food::Get();
+		$view = 'FTFoodLog/index.php';		
 		break;
 }
 
