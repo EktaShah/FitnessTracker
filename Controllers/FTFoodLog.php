@@ -8,27 +8,34 @@ $view 	= null;
 
 switch ($action . '_' . $method) {
 	case 'create_GET':
-		$view = "food/edit.php";
+        $model = Food::Blank();
+        $view = "FTFoodLog/edit.php";
 		break;
-	case 'create_POST':
+	case 'save_POST':
 		//	Proccess input
-		break;
+        //Validate
+        if($_REQUEST['id'])
+        {
+            //update
+            Food::Save($_REQUEST);
+         }else{
+             //Create
+             Food::Save($_REQUEST1);
+          }
+	break;
 	case 'edit_GET':
-		#$model = Food::Get($_REQUEST['id']);
-		$view = "food/edit.php";		
-		break;
-	case 'edit_POST':
-		//	Proccess input
-		break;
-	case 'delete_GET':
-		$view = "food/delete.php";		
-		break;
-	case 'delete_POST':
-		//	Proccess input
-		break;
-	case 'index_GET':
+        $model = Food::Get($_REQUEST['id']);
+        $view = "FTFoodLog/edit.php";
+        break;
+    case 'delete Get':
+        $view = "FTFoodLog/delete.php";
+        break;
+    case 'delete Post':
+        //Process input
+        break;
+    case 'index_GET':
 	default:
-		#$model = Food::Get();
+		$model = Food::Get();
 		$view = 'FTFoodLog/index.php';		
 		break;
 }
@@ -45,3 +52,4 @@ switch ($format) {
 		include __DIR__ . "/../Views/shared/_Template.php";		
 		break;
 }
+?>

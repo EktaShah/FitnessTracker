@@ -22,35 +22,26 @@
                             <th>Calories</th>
                             <th>Fat(g)</th>
                             <th>Carbs(g)</th>
-                            <th>Protien(g)</th>
+                            <th>Protein(g)</th>
                             <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <? foreach ($model as $rs): ?>                          
                         <tr>
-                            <td>Pizza</td>
-                            <td>500</td>
-                            <td>18.0</td>
-                            <td>5.0</td>
-                            <td>3.0</td>
-                            <td> Sunday 9:15am</td>
+                            <td><?=$rs['Name']?></td>
+                            <td><?=$rs['Calories']?></td>
+                            <td><?=$rs['Fat']?></td>
+                            <td><?=$rs['Carbs']?></td>
+                            <td><?=$rs['Protein']?></td>
+                            <td><?=$rs['Time']?></td>
+                        <td>
+                            <a title="Edit" class="btn btn-default btn-sm toggle-modal" data-target="#myModal" href="?action=edit&id=<?=$rs['id']?>">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+                        </td>
                         </tr>
-                        <tr>
-                            <td>Yogurt</td>
-                            <td>80</td>
-                            <td>0.5</td>
-                            <td>0.0</td>
-                            <td>3.0</td>
-                            <td> Sunday 10:15am</td>
-                        </tr>
-                        <tr>
-                            <td>CerealBar</td>
-                            <td>100</td>
-                            <td>2.0</td>
-                            <td>5.0</td>
-                            <td>3.0</td>
-                            <td> Sunday 11:15am</td>
-                        </tr>
+                        <? endforeach; ?>
                     </tbody>
                 </table>
 
@@ -66,7 +57,7 @@
 
             <script type='text/javascript'>
                 $(window).load(function() {
-
+                    $(".FTFoodLog").addClass("active");
                     $("#top-nav").load("inc/navigation.php", function() {
                         $(".index").addClass("active");
                     });

@@ -14,12 +14,8 @@
 				<!-- <li class="active">
 					<a href="index.php">Home</a>
 				</li> -->
-				<li>
-					<a href="FTFoodLog.php?action=index">Food Log</a>
-				</li>   
-				<li>    
-					<a href="FTExerciseLog.php">Exercise Log</a>
-				</li>
+				<li class = "FTFoodLog"><a href="FTFoodLog.php?action=index">Food Log</a></li>   
+				<li class = "FTExerciseLog"><a href="FTExerciseLog.php">Exercise Log</a></li>
 				<li>
 					<a href="#">BMI Calculator</a>
 				</li>
@@ -29,7 +25,7 @@
 				<li>
 					<a href="#">Make a Group</a>
 				</li>
-				<li>
+				<li class = "SignIn">
 					<a href="ftsignIn.php">Sign In</a>
 				</li>
 			</ul>
