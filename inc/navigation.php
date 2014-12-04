@@ -6,7 +6,7 @@
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
 
 			</button>
-			<a class="navbar-brand" href="index.php">FitnessTracker</a>
+			<a class="navbar-brand" href="{{loc}}index.php">FitnessTracker</a>
 		</div>
 		<div class="collapse navbar-collapse">
 
@@ -14,8 +14,8 @@
 				<!-- <li class="active">
 					<a href="index.php">Home</a>
 				</li> -->
-				<li class = "FTFoodLog"><a href="FTFoodLog.php?action=index">Food Log</a></li>   
-				<li class = "FTExerciseLog"><a href="FTExerciseLog.php">Exercise Log</a></li>
+				<li class = "FTFoodLog"><a href="{{loc}}Controllers/FTFoodLog.php?action=index">Food Log</a></li>   
+				<li class = "FTExerciseLog"><a href="{{loc}}/Controllers/FTExerciseLog.php">Exercise Log</a></li>
 				<li>
 					<a href="#">BMI Calculator</a>
 				</li>

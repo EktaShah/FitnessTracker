@@ -6,11 +6,11 @@ include_once __DIR__ . '/../inc/_all.php';
 class Food {
 
     public static function Blank() {
-        return array('id' => null, 'Name' => null, 'Calories' => null, 'Fat' => null, 'Carbs' => null, 'Protein' => null, 'Time' => date(strtotime('tomorrow')));
+        return array('id' => null, 'Activity Type' => null, 'Distance' => null, 'Average pace' => null, 'Calories Burned' => null, 'Date' => null, 'Time' => date(strtotime('tomorrow')));
     }
 
     public static function Get($id = null) {
-        $sql = "SELECT * FROM FTFoodLog";
+        $sql = "SELECT * FROM FTExerciseLog";
         if ($id) {
             $sql .= " WHERE id=$id ";
             $ret = FetchAll($sql);
@@ -33,8 +33,9 @@ class Food {
                         WHERE id = $row2[id]
                         ";
             }else{
+            
                 $sql = "  
-                    INSERT INTO FTFoodLog
+                    INSERT INTO FTFoodLog`
                     (
                     `Name`,
                     `Calories`,
@@ -44,7 +45,7 @@ class Food {
                     `Time`,
                     `UserId`)
                     VALUES
-                    ('$row2[Name]', '$row2[Calories]', '$row2[Fat]', '$row2[Carbs]', '$row2[Protein]', '$row2[Time]', '$row2[UserId]')";
+                    ('$row2[Name]', '$row2[Calories]', '$row2[Fat]', '$row2[Carbs]', '$row2[Protein]', '$row2[Time]', Now(), $row2[UserId])";
                 
             }
             
@@ -79,7 +80,7 @@ class Food {
         static public function Validate($row)
         {
             error_log("Validate:");
-            error_log(json_encode($row));
+             error_log(json_encode($row));
             $errors = array();
             if(empty($row['Name'])) $errors['Name'] = "is required";
             if(empty($row['Calories'])) $errors['Calories'] = "is required";

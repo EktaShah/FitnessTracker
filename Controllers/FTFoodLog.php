@@ -2,7 +2,7 @@
 	include_once __DIR__ . '/../inc/_all.php';
 
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
-$method = isset($_POST['submit']) ? 'POST' : 'GET';
+$method = $_SERVER['REQUEST_METHOD'];
 $format = isset($_REQUEST['format']) ? $_REQUEST['format'] : 'web';
 $view 	= null;
 
@@ -12,30 +12,42 @@ switch ($action . '_' . $method) {
         $view = "FTFoodLog/edit.php";
 		break;
 	case 'save_POST':
-		//	Proccess input
-        //Validate
-        if($_REQUEST['id'])
-        {
-            //update
-            Food::Save($_REQUEST);
-         }else{
-             //Create
-             Food::Save($_REQUEST1);
-          }
+		$sub_action = empty($_REQUEST['id'])?'created':'updated';
+        $postdata = file_get_contents("php://input");
+        $postJSON = json_decode($postdata, true);
+        $error = Food::Validate($postJSON);
+        if(!$error){
+            $error = Food::Save($postJSON);
+            $model = "";
+        } else {
+            $model = $error;
+        }
+        
+        $format = 'json';
 	break;
 	case 'edit_GET':
         $model = Food::Get($_REQUEST['id']);
         $view = "FTFoodLog/edit.php";
         break;
     case 'delete Get':
+        $model = Food::Get($_REQUEST['id']);
         $view = "FTFoodLog/delete.php";
         break;
     case 'delete Post':
-        //Process input
+       $errors = Food::Delete($_REQUEST['id']);
+        if($errors){
+                $model = Food::Get($_REQUEST['id']);
+                $view = "FTFoodLog/delete.php";
+        }else{
+                header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
+                die();          
+        }
+        break;
         break;
     case 'index_GET':
 	default:
-		$model = Food::Get();
+		$data = Food::Get(); // FetchAll returns array of maps
+        $model['data'] = $data; // model is map with data as key
 		$view = 'FTFoodLog/index.php';		
 		break;
 }
