@@ -1,5 +1,3 @@
-var selectedFood = null;
-
 $(window).load(function() {
 	$(".index").addClass("active");
 });
@@ -29,7 +27,6 @@ $(document).ready(function() {
 		} else {
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
-			selectedFood = table.fnGetData(this);
 		}
 	});
 });
@@ -62,7 +59,8 @@ fitnessTracker.controller('dialogServiceTest', function($scope, $rootScope, $tim
 			break;
 		case 'delete':
 			// Get the selected row's id from datatable
-				
+			selectedFood = $('#example').dataTable().fnGetData($('#example tr.selected'));
+			
 			if(!selectedFood) {
 				alert("Please select a food to delete");
 			}
