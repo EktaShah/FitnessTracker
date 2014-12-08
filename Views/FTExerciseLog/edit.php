@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" ng-keyup="keyupEvent($event)">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,38 +12,40 @@
             <div class="modal-body">
                 <ng-form name="nameDialog" novalidate role="form">
                     <div class="form-group input-group-sm"
-                    ng-class="{ true: 'has-error' }[nameDialog.foodName.$dirty && nameDialog.foodName.$invalid]">
-                        <label class="control-label" for="foodName">*Activity Type:</label>
-                        <input type="text" class="form-control" name="Running/Walking" id="Running/Walking" ng-model="exercise.activity" required>
+                    ng-class="{ true: 'has-error' }[nameDialog.Exercise.$dirty && nameDialog.Exercise.$invalid]">
+                        <label class="control-label" for="Exercise">*Exercise:</label>
+                        <input type="text" class="form-control" name="Exercise" id="Exercise" ng-model="exercise.Exercise" required>
                         </input>
                     </div>
                     <div class="form-group input-group-sm"
-                    ng-class="{ true: 'has-error' }[nameDialog.calories.$dirty && nameDialog.calories.$invalid]">
-                        <label class="control-label" for="calories">*Distance:</label>
-                        <input type="text" class="form-control" name="Distance" id="Distance" ng-model="exercise.distance" required>
+                    ng-class="{ true: 'has-error' }[nameDialog.ActivityType.$dirty && nameDialog.ActivityType.$invalid]">
+                        <label class="control-label" for="ActivityType">*Activity Type:</label>
+                        <input type="text" class="form-control" name="ActivityType" id="ActivityType" ng-model="exercise.ActivityType" required>
                         </input>
                     </div>
                     <div class="form-group input-group-sm"
-                    ng-class="{ true: 'has-error' }[nameDialog.fat.$dirty && nameDialog.fat.$invalid]">
-                        <label class="control-label" for="fat">*Average pace:</label>
-                        <input type="text" class="form-control" name="Average pace" id="Average pace" ng-model="exercise.averagepace" required>
+                    ng-class="{ true: 'has-error' }[nameDialog.Distance.$dirty && nameDialog.Distance.$invalid]">
+                        <label class="control-label" for="Distance">*Distance:</label>
+                        <input type="text" class="form-control" name="Distance" id="Distance" ng-model="exercise.Distance" required>
                         </input>
                     </div>
                     <div class="form-group input-group-sm"
-                    ng-class="{ true: 'has-error' }[nameDialog.protein.$dirty && nameDialog.protein.$invalid]">
-                        <label class="control-label" for="protein">*Calories Burned:</label>
-                        <input type="text" class="form-control" name="calories" id="calories" ng-model="exercise.calories" required>
+                    ng-class="{ true: 'has-error' }[nameDialog.AveragePace.$dirty && nameDialog.AveragePace.$invalid]">
+                        <label class="control-label" for="AveragePace">*Average pace:</label>
+                        <input type="text" class="form-control" name="Average pace" id="Average pace" ng-model="exercise.AveragePace">
                         </input>
                     </div>
                     <div class="form-group input-group-sm"
-                    ng-class="{ true: 'has-error' }[nameDialog.carbs.$dirty && nameDialog.carbs.$invalid]">
-                        <label class="control-label" for="carbs">*Date:</label>
-                         <input type="datetime-local" class="form-control" id="date" ng-model="exercise.date" value="<?=date('m/d/Y H:i:s')?>" required>
+                    ng-class="{ true: 'has-error' }[nameDialog.Calories.$dirty && nameDialog.Calories.$invalid]">
+                        <label class="control-label" for="Calories">*Calories Burned:</label>
+                        <input type="text" class="form-control" name="calories" id="calories" ng-model="exercise.Calories" required>
                         </input>
                     </div>
-                    <div class="form-group input-group-sm">
-                        <label class="control-label" for="time">Time:</label>
-                        <input type="datetime-local" class="form-control" id="time" ng-model="food.time" value="<?=strtotime($model['Time']) ?>">
+                    <div class="form-group input-group-sm"
+                    ng-class="{ true: 'has-error' }[nameDialog.Time.$dirty && nameDialog.Time.$invalid]">
+                        <label class="control-label" for="Time">*Time:</label>
+                         <input type="datetime-local" class="form-control" id="Time" ng-model="exercise.Time" value="<?=date('m/d/Y H:i:s')?>">
+                        </input>
                     </div>
 
                 </ng-form>

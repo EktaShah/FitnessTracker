@@ -1,6 +1,6 @@
 <?
-    include_once __DIR__ . '/../inc/_all.php';
-error_log(json_encode($_REQUEST));
+	include_once __DIR__ . '/../inc/_all.php';
+
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 $method = $_SERVER['REQUEST_METHOD'];
 $format = isset($_REQUEST['format']) ? $_REQUEST['format'] : 'web';
@@ -13,40 +13,62 @@ switch ($action . '_' . $method) {
         break;
     case 'save_POST':
         $sub_action = empty($_REQUEST['id'])?'created':'updated';
-        $error = Exercise::Validate($_REQUEST);
-        if(!$error){
-            $error = Exercise::Save($_REQUEST);
-            $model = $_REQUEST;
+        $postdata = file_get_contents("php://input");
+        $postJSON = json_decode($postdata, true);
+        $error = Exercise::Validate($postJSON);
+        $data = array();
+        if($error){
+            error_log("Validation Error:" . json_encode($error));
         } else {
-            $model = $error;
+            $result = Exercise::Save($postJSON);
+            if($result['error']) {
+                $error = $result['sql_error'];
+                error_log("Save Error:" . json_encode($error));
+            } else {
+                $data = $result['data'];
+            }
         }
-        
+        $model = array();
+         if($error) {
+            $model["status"] = "FAILURE";
+            $model["error"] = $error;
+            http_response_code(400);
+        } else {
+            $model["status"] = "SUCCESS";
+            $model["message"] = "Excelent Job. $data[Exercise] has been recorded.";
+            $model['data'] = $data;
+            error_log("Done Saving");
+        }
+        error_log("Response: " . json_encode($model));
         $format = 'json';
     break;
     case 'edit_GET':
         $model = Exercise::Get($_REQUEST['id']);
         $view = "FTExerciseLog/edit.php";
         break;
-    case 'delete Get':
+    case 'deleteGet_GET':
         $model = Exercise::Get($_REQUEST['id']);
         $view = "FTExerciseLog/delete.php";
         break;
-    case 'delete Post':
-       $errors = Exercise::Delete($_REQUEST['id']);
-        if($errors){
-                $model = Exercise::Get($_REQUEST['id']);
-                $view = "FTExerciseLog/delete.php";
+    case 'delete_GET':
+       error_log("Delete Request: " . json_encode($_REQUEST));
+       $error = Exercise::Delete($_REQUEST['id']);
+        if($error){
+            $model["status"] = "FAILURE";
+            $model["error"] = $error['sql_error'];
+            http_response_code(400);
         }else{
-                header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
-                die();          
+                $model["status"] = "SUCCESS";
+            $model["message"] = "Excelent Job.";
+            error_log("Done Saving");
         }
-        break;
+        $format = 'json';  
         break;
     case 'index_GET':
     default:
         $data = Exercise::Get(); // FetchAll returns array of maps
         $model['data'] = $data; // model is map with data as key
-        $view = 'FTExericseLog/index.php';      
+        $view = 'FTExerciseLog/index.php';      
         break;
 }
 

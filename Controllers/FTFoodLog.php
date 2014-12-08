@@ -16,33 +16,55 @@ switch ($action . '_' . $method) {
         $postdata = file_get_contents("php://input");
         $postJSON = json_decode($postdata, true);
         $error = Food::Validate($postJSON);
-        if(!$error){
-            $error = Food::Save($postJSON);
-            $model = "";
+        $data = array();
+        if($error){
+            error_log("Validation Error:" . json_encode($error));
         } else {
-            $model = $error;
+            $result = Food::Save($postJSON);
+            if($result['error']) {
+                $error = $result['sql_error'];
+                error_log("Save Error:" . json_encode($error));
+            } else {
+                $data = $result['data'];
+            }
         }
         
+        $model = array();
+        
+        if($error) {
+            $model["status"] = "FAILURE";
+            $model["error"] = $error;
+            http_response_code(400);
+        } else {
+            $model["status"] = "SUCCESS";
+            $model["message"] = "Excelent Job. $data[Name] has been recorded. Now don't eat too much";
+            $model['data'] = $data;
+            error_log("Done Saving");
+        }
+        error_log("Response: " . json_encode($model));
         $format = 'json';
 	break;
 	case 'edit_GET':
         $model = Food::Get($_REQUEST['id']);
         $view = "FTFoodLog/edit.php";
         break;
-    case 'delete Get':
+    case 'deleteGet_GET':
         $model = Food::Get($_REQUEST['id']);
         $view = "FTFoodLog/delete.php";
         break;
-    case 'delete Post':
-       $errors = Food::Delete($_REQUEST['id']);
-        if($errors){
-                $model = Food::Get($_REQUEST['id']);
-                $view = "FTFoodLog/delete.php";
-        }else{
-                header("Location: ?sub_action=$sub_action&id=$_REQUEST[id]");
-                die();          
+    case 'delete_GET':
+       error_log("Delete Request: " . json_encode($_REQUEST));
+       $error = Food::Delete($_REQUEST['id']);
+       if($error) {
+            $model["status"] = "FAILURE";
+            $model["error"] = $error['sql_error'];
+            http_response_code(400);
+        } else {
+            $model["status"] = "SUCCESS";
+            $model["message"] = "Excelent Job.";
+            error_log("Done Saving");
         }
-        break;
+        $format = 'json';  
         break;
     case 'index_GET':
 	default:

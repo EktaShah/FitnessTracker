@@ -27,9 +27,9 @@ class Food {
             $row2 = escape_all($row, $conn);
             $row2['Time'] = date( 'Y-m-d H:i:s', strtotime( $row2['Time'] ) );
             if (!empty($row['id'])) {
-                $sql = "Update 2014Fall_Food_Eaten
-                            Set Name='$row2[Name]', Type_id='$row2[Type_id]', Calories='$row2[Calories]',
-                                Fat='$row2[Fat]', Carbs='$row2[Carbs]', Fiber='$row2[Fiber]', Time='$row2[Time]'
+                $sql = "Update FTFoodLog
+                            Set Name='$row2[Name]',Calories='$row2[Calories]',
+                                Fat='$row2[Fat]', Carbs='$row2[Carbs]', Protein='$row2[Protein]', Time='$row2[Time]'
                         WHERE id = $row2[id]
                         ";
             }else{
@@ -61,25 +61,26 @@ class Food {
             
             $conn->close();
             
-            return $error ? array ('sql error' => $error) : false;
+            return $error ? array ('error' => true, 'sql_error' => $error) # true value
+                          : array ('error' => false, 'data' => $row);      # false value
         }
         
         static public function Delete($id)
         {
             $conn = GetConnection();
-            $sql = "DELETE FROM 2014Fall_Food_Eaten WHERE id = $id";
+            $sql = " DELETE FROM FTFoodLog
+                     WHERE id = $id ";
             //echo $sql;
             $results = $conn->query($sql);
             $error = $conn->error;
             $conn->close();
             
-            return $error ? array ('sql error' => $error) : false;
+            return $error ? array ('sql_error' => $error) : false;
         }
 
         static public function Validate($row)
         {
-            error_log("Validate:");
-            error_log(json_encode($row));
+            error_log("Validate Food:" . json_encode($row));
             $errors = array();
             if(empty($row['Name'])) $errors['Name'] = "is required";
             if(empty($row['Calories'])) $errors['Calories'] = "is required";

@@ -38,3 +38,7 @@ ng-form .row {
 	padding: 25px;
 }
 
+tr.even.selected, tr.odd.selected td{
+	background-color: #FF6666 !important;
+}
+

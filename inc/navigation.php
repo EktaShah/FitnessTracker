@@ -15,7 +15,7 @@
 					<a href="index.php">Home</a>
 				</li> -->
 				<li class = "FTFoodLog"><a href="{{loc}}Controllers/FTFoodLog.php?action=index">Food Log</a></li>   
-				<li class = "FTExerciseLog"><a href="{{loc}}/Controllers/FTExerciseLog.php">Exercise Log</a></li>
+				<li class = "FTExerciseLog"><a href="{{loc}}Controllers/FTExerciseLog.php">Exercise Log</a></li>
 				<li>
 					<a href="#">BMI Calculator</a>
 				</li>
