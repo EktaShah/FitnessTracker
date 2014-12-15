@@ -1,15 +1,15 @@
 <?
 	include_once __DIR__ . '/../inc/_all.php';
-
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 $method = $_SERVER['REQUEST_METHOD'];
 $format = isset($_REQUEST['format']) ? $_REQUEST['format'] : 'web';
 $view 	= null;
-
+$loc = "../";
 switch ($action . '_' . $method) {
 	case 'create_GET':
         $model = Food::Blank();
         $view = "FTFoodLog/edit.php";
+        
 		break;
 	case 'save_POST':
 		$sub_action = empty($_REQUEST['id'])?'created':'updated';
@@ -45,6 +45,7 @@ switch ($action . '_' . $method) {
         $format = 'json';
 	break;
 	case 'edit_GET':
+        error_log("Edit Request: " . json_encode($_REQUEST));
         $model = Food::Get($_REQUEST['id']);
         $view = "FTFoodLog/edit.php";
         break;
@@ -66,16 +67,19 @@ switch ($action . '_' . $method) {
         }
         $format = 'json';  
         break;
+    case 'get_GET':
+        $data = Food::GetAll($_REQUEST['UserId']); // FetchAll returns array of maps
+        $model['data'] = $data; // model is map with data as key
+        break;
     case 'index_GET':
 	default:
-		$data = Food::Get(); // FetchAll returns array of maps
-        $model['data'] = $data; // model is map with data as key
 		$view = 'FTFoodLog/index.php';		
 		break;
 }
 
 switch ($format) {
 	case 'json':
+	    error_log("Response: " . json_encode($model));
 		echo json_encode($model);
 		break;
 	case 'plain':

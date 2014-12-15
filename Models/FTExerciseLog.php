@@ -8,7 +8,12 @@ class Exercise {
     public static function Blank() {
         return array('id' => null, 'Exercise' => null, 'ActivityType' => null, 'Distance' => null, 'AveragePace' => null, 'Calories' => null, 'Time' => date(strtotime('tomorrow')));
     }
-
+    
+    public static function GetAll($userId) {
+        $sql = "SELECT * FROM FTExerciseLog WHERE UserId='$userId'";
+        return FetchAll($sql);
+    }
+    
     public static function Get($id = null) {
         $sql = "SELECT * FROM FTExerciseLog";
         if ($id) {
@@ -28,26 +33,22 @@ class Exercise {
             $row2['Time'] = date( 'Y-m-d H:i:s', strtotime( $row2['Time'] ) );
             if (!empty($row['id'])) {
                 $sql = "Update FTExerciseLog
-                            Set Name='$row2[Name]', Type_id='$row2[Type_id]', Calories='$row2[Calories]',
-                                Fat='$row2[Fat]', Carbs='$row2[Carbs]', Fiber='$row2[Fiber]', Time='$row2[Time]'
+                            Set Exercise='$row2[Exercise]', ActivityType='$row2[ActivityType]', Distance='$row2[Distance]',
+                                AveragePace='$row2[AveragePace]', Calories='$row2[Calories]', Time='$row2[Time]'
                         WHERE id = $row2[id]
                         ";
             }else{
-            
-                $sql = "  
-                    INSERT INTO FTExerciseLog
-                        (
-                        `Exercise`,
-                        `ActivityType`,
-                        `Distance`,
-                        `AveragePace`,
-                        `Calories`,
-                        `Time`,
-                        `UserId`)
-                        VALUES
-                        ('$row2[Exercise]','$row2[ActivityType]','$row2[Distance]','$row2[AveragePace]','$row2[Calories]','$row2[Time]','$row2[UserId]')";
-                                     
-     }
+                $columns = array();
+                $values = array();
+                foreach ($row2 as $key => $value) {
+                    array_push($columns, $key);
+                    array_push($values, $value);
+                }
+                $columns = implode("`,`", $columns);
+                $values = implode("','", $values);
+                $sql = "INSERT INTO FTExerciseLog ( `$columns` ) VALUES (  '$values' )";
+          		error_log("SQL:" . $sql);
+		   }
             
             
             

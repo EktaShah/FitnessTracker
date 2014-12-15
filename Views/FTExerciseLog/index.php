@@ -5,29 +5,23 @@
 <div class="container content" ng-controller="dialogServiceTest">
 	<div class="row">
 		<div class="col-md-12">
-			<!--
-			<button class="btn btn-danger" ng-click="launch('error')">
-			Error Dialog
-			</button>
-
-			<button class="btn btn-primary" ng-click="launch('wait')">
-			Wait Dialog
-			</button>
-
-			<button class="btn btn-default" ng-click="launch('notify')">
-			Notify Dialog
-			</button>
-
-			<button class="btn btn-success" ng-click="launch('confirm')">
-			Confirm Dialog
-			</button>
-			-->
-
-			<button class="btn btn-success" ng-click="launch('create')">
+						
+<button class="btn btn-success" ng-click="launch('create')">
 				<i class="glyphicon glyphicon-plus"></i>Run/Walk
 			</button>
-			<button id="deleteButton" class="btn btn-danger" ng-click="launch('delete')">
+			<button id="quickAddButton" class="btn btn-success selectedButton" 
+                 ng-click="launch('quickAdd')" disabled="true"
+                 data-toggle="popover" title="Quick add the selected item">
+                <i class="glyphicon glyphicon-plus-sign"></i> Quick Add
+			</button>
+			<button id="deleteButton" class="btn btn-danger selectedButton" ng-click="launch('delete')" disabled="true"
+                 data-toggle="popover" title="Delete the selected item">
 				<i class="glyphicon glyphicon-trash"></i> Delete
+			</button>
+			<button id="updateButton" class="btn btn-warning selectedButton" 
+			     ng-click="launch('update')" disabled="true"
+			     data-toggle="popover" title="Update the selected item">
+				<i class="glyphicon glyphicon-pencil"></i> Update
 			</button>
 		</div>
 	</div>

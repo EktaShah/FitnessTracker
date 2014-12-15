@@ -6,9 +6,14 @@ include_once __DIR__ . '/../inc/_all.php';
 class Food {
 
     public static function Blank() {
-        return array('id' => null, 'Name' => null, 'Calories' => null, 'Fat' => null, 'Carbs' => null, 'Protein' => null, 'Time' => date(strtotime('tomorrow')));
+        return array('id' => null, 'Name' => null, 'Calories' => null, 'Fat' => null, 'Carbs' => null, 'Protein' => null, 'Servings' => null, 'Time' => date(strtotime('tomorrow')));
     }
 
+    public static function GetAll($userId) {
+        $sql = "SELECT * FROM FTFoodLog WHERE UserId='$userId'";
+        return FetchAll($sql);
+    }
+    
     public static function Get($id = null) {
         $sql = "SELECT * FROM FTFoodLog";
         if ($id) {
@@ -29,22 +34,22 @@ class Food {
             if (!empty($row['id'])) {
                 $sql = "Update FTFoodLog
                             Set Name='$row2[Name]',Calories='$row2[Calories]',
-                                Fat='$row2[Fat]', Carbs='$row2[Carbs]', Protein='$row2[Protein]', Time='$row2[Time]'
+                                Fat='$row2[Fat]', Carbs='$row2[Carbs]', Protein='$row2[Protein]', Servings='$row2[Servings]', Time='$row2[Time]'
                         WHERE id = $row2[id]
                         ";
             }else{
-                $sql = "  
-                    INSERT INTO FTFoodLog
-                    (
-                    `Name`,
-                    `Calories`,
-                    `Fat`,
-                    `Carbs`,
-                    `Protein`,
-                    `Time`,
-                    `UserId`)
-                    VALUES
-                    ('$row2[Name]', '$row2[Calories]', '$row2[Fat]', '$row2[Carbs]', '$row2[Protein]', '$row2[Time]', '$row2[UserId]')";
+                $columns = array();
+                $values = array();
+                foreach ($row2 as $key => $value) {
+                    array_push($columns, $key);
+                    array_push($values, $value);
+                }
+                $columns = implode("`,`", $columns);
+                $values = implode("','", $values);
+                $sql = "INSERT INTO FTFoodLog ( `$columns` ) VALUES (  '$values' )";
+                
+                //'$row2[Name]', '$row2[Calories]', '$row2[Fat]', '$row2[Carbs]', '$row2[Protein]','$row2[Servings]', '$row2[Time]', '$row2[UserId]')";
+                error_log("SQL:" . $sql);
                 
             }
             

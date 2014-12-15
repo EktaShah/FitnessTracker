@@ -1,47 +1,55 @@
-$(window).load(function() {
-	$(".index").addClass("active");
+$(".nav a").on("click", function() {
+	$(".nav").find(".active").removeClass("active");
+	$(this).parent().addClass("active");
 });
-$(document).ready(function() {
-	var table = $('#exerciseLog').dataTable({
-		responsive : true,
-		"ajax" : "FTExerciseLog.php?format=json&action=get",
-		"columns" : [{
-			"data" : "id"
-		}, {
-			"data" : "Exercise"
-		}, {
-			"data" : "ActivityType"
-		}, {
-			"data" : "Distance"
-		}, {
-			"data" : "AveragePace"
-		}, {
-			"data" : "Calories"
-		}, {
-			"data" : "Time"
-		}]
-	});
-
-	$('#exerciseLog tbody').on('click', 'tr', function() {
-		if ($(this).hasClass('selected')) {
-			$(this).removeClass('selected');
-		} else {
-			table.$('tr.selected').removeClass('selected');
-			$(this).addClass('selected');
-		}
-	});
-
+$('[data-toggle="popover"]').popover({
+	trigger : 'hover',
+	'placement' : 'top'
 });
 
-fitnessTracker.controller('dialogServiceTest', function($scope, $rootScope, $timeout, $dialogs, $http) {
+fitnessTracker.controller('dialogServiceTest', function($scope, $rootScope, $timeout, $dialogs, $http, UserData) {
+	$scope.$on('handleLogin', function() {
+		$(document).ready(function() {
+			var table = $('#exerciseLog').dataTable({
+				responsive : true,
+				"ajax" : "FTExerciseLog.php?format=json&action=get&UserId=" + UserData.facebook.authorization.id,
+				"columns" : [{
+					"data" : "id"
+				}, {
+					"data" : "Exercise"
+				}, {
+					"data" : "ActivityType"
+				}, {
+					"data" : "Distance"
+				}, {
+					"data" : "AveragePace"
+				}, {
+					"data" : "Calories"
+				}, {
+					"data" : "Time"
+				}]
+			});
 
+			$('#exerciseLog tbody').on('click', 'tr', function() {
+				if ($(this).hasClass('selected')) {
+					$(this).removeClass('selected');
+					$('.selectedButton').prop("disabled", true);
+				} else {
+					table.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+					$('.selectedButton').prop("disabled", false);
+				}
+			});
+
+		});
+	});
 	$scope.launch = function(which) {
 		var dlg = null;
 		switch(which) {
 
 		// Create Your Own Dialog
 		case 'create':
-			dlg = $dialogs.create('?action=create&format=plain', 'exerciseLogController', {}, {
+			dlg = $dialogs.create('?action=create&format=plain', 'exerciseLogController', null, {
 				key : false,
 				back : 'static'
 			});
@@ -60,15 +68,72 @@ fitnessTracker.controller('dialogServiceTest', function($scope, $rootScope, $tim
 			});
 
 			break;
+		case 'update':
+			// Get the selected row's id from datatable
+			selectedExercise = $('#exerciseLog').dataTable().fnGetData($('#exerciseLog tr.selected'));
+			var selectedId = selectedExercise['id'];
+
+			$http.get('?action=edit&format=json&id=' + selectedId).success(function(data, status, headers, config) {
+				dlg = $dialogs.create('?action=create&format=plain', 'exerciseLogController', data, {
+					key : false,
+					back : 'static',
+
+				});
+				dlg.result.then(function(exercise) {
+					// Save to database
+					$http.post('?action=save', exercise).success(function(data, status, headers, config) {
+						var message = '<p>' + data['message'] + '</p>';
+						$("#myAlert").show().find('div').html(message + JSON.stringify(data));
+						// Add this row to datatable
+						$('#exerciseLog').DataTable().ajax.reload();
+					}).error(function(data, status, headers, config) {
+						$("#myAlert").show().find('div').html(JSON.stringify(data));
+					});
+				}, function() {
+					$scope.exerciselogMessage = 'You decided not to enter any exercise, that makes me sad.';
+				});
+			}).error(function(data, status, headers, config) {
+				$("#myAlert").show().find('div').html(JSON.stringify(data));
+			});
+
+			break;
+		case 'quickAdd':
+			// Get the selected row's id from datatable
+			selectedExercise = $('#exerciseLog').dataTable().fnGetData($('#exerciseLog tr.selected'));
+			var selectedId = selectedExercise['id'];
+
+			$http.get('?action=edit&format=json&id=' + selectedId).success(function(data, status, headers, config) {
+				// Remove id so that a new one gets created.
+				delete data["id"];
+				dlg = $dialogs.create('?action=create&format=plain', 'exerciseLogController', data, {
+					key : false,
+					back : 'static',
+
+				});
+				dlg.result.then(function(exercise) {
+					// Save to database
+					$http.post('?action=save', exercise).success(function(data, status, headers, config) {
+						var message = '<p>' + data['message'] + '</p>';
+						$("#myAlert").show().find('div').html(message + JSON.stringify(data));
+						// Add this row to datatable
+						$('#exerciseLog').DataTable().ajax.reload();
+					}).error(function(data, status, headers, config) {
+						$("#myAlert").show().find('div').html(JSON.stringify(data));
+					});
+				}, function() {
+					$scope.exerciselogMessage = 'You decided not to add any exercise, that makes me sad.';
+				});
+			}).error(function(data, status, headers, config) {
+				$("#myAlert").show().find('div').html(JSON.stringify(data));
+			});
+
+			break;
+
 		case 'delete':
 			// Get the selected row's id from datatable
-			selectedExercise = $('#example').dataTable().fnGetData($('#example tr.selected'));
-			
-			if(!selectedExercise) {
-				alert("Please select an exercise to delete");
-			}
+			var selectedExercise = $('#exerciseLog').dataTable().fnGetData($('#exerciseLog tr.selected'));
+			console.log(JSON.stringify(selectedExercise));
 			var selectedId = selectedExercise['id'];
-			
 			dlg = $dialogs.create('?action=deleteGet&format=plain&id=' + selectedId, 'deleteExerciseController', {}, {
 				key : false,
 				back : 'static'
@@ -110,7 +175,7 @@ fitnessTracker.controller('deleteExerciseController', function($scope, $modalIns
 	};
 });
 
-fitnessTracker.controller('exerciseLogController', function($scope, $modalInstance, data) {
+fitnessTracker.controller('exerciseLogController', function($scope, $modalInstance, data, UserData) {
 	var currentdate = new Date();
 	var hours = currentdate.getHours();
 	var ampm = 'AM';
@@ -118,10 +183,11 @@ fitnessTracker.controller('exerciseLogController', function($scope, $modalInstan
 		hours -= 12;
 		ampm = 'PM';
 	}
-	$scope.exercise = {
+	$scope.exercise = data ? data : {
+		Exercise : '',
 		AveragePace : 0,
 		Time : (currentdate.getMonth() + 1) + "/" + currentdate.getDate() + "/" + currentdate.getFullYear() + " " + hours + ":" + currentdate.getMinutes() + " " + ampm,
-		UserId : 'shahe1'
+		UserId : UserData.facebook.authorization.id,
 	};
 
 	$scope.cancel = function() {
@@ -130,6 +196,7 @@ fitnessTracker.controller('exerciseLogController', function($scope, $modalInstan
 	// end cancel
 
 	$scope.save = function() {
+		console.log(JSON.stringify($scope.exercise));
 		$modalInstance.close($scope.exercise);
 	};
 
