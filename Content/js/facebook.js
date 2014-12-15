@@ -12,7 +12,7 @@ fitnessTracker.controller('facebook', function($scope, $rootScope, $timeout, $di
 		FB.logout(function(response) {
 			if (response.authResponse) {
 				jQuery(document).trigger("facebook-logged-out");
-				location.reload();
+				location.replace("../index.php");
 			}
 		});
 	};
@@ -54,6 +54,7 @@ fitnessTracker.controller('facebook', function($scope, $rootScope, $timeout, $di
 		alert("Finished Loggin in");
 		FB.getLoginStatus(function(response) {
 			$scope.statusChangeCallback(response);
+			
 		});
 	};
 
@@ -101,17 +102,25 @@ fitnessTracker.controller('facebook', function($scope, $rootScope, $timeout, $di
 	$scope.testAPI = function() {
 		console.log('Welcome!  Fetching your information.... ');
 		FB.api('/me', function(response) {
+			console.log(JSON.stringify(response)); 
 			UserData.facebook = {
 				authorization : response,
+				
 			};
 			$('#status').innerHTML = '<h3>Thanks for logging in, ' + response.name + '!';
 			console.log("Scope in food:" + JSON.stringify(response.id));
 			UserData.prepForBroadcast();
 		});
-		FB.api("/me/picture", function(response) {
+		FB.api("/me/picture/taggable_friends", function(response) {
 			if (response && !response.error) {
 				$('#profile').prop("src", response['data']['url']);
 			}
 		});
+		// I have to still get the list of friends.
+		FB.api('/me/taggable_friends', function(response) {
+                       console.log(response);
+                       UserData.facebook.taggable = response;
+});
+
 	};
 });
