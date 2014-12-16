@@ -54,7 +54,7 @@ fitnessTracker.controller('facebook', function($scope, $rootScope, $timeout, $di
 		alert("Finished Loggin in");
 		FB.getLoginStatus(function(response) {
 			$scope.statusChangeCallback(response);
-			
+
 		});
 	};
 
@@ -102,10 +102,10 @@ fitnessTracker.controller('facebook', function($scope, $rootScope, $timeout, $di
 	$scope.testAPI = function() {
 		console.log('Welcome!  Fetching your information.... ');
 		FB.api('/me', function(response) {
-			console.log(JSON.stringify(response)); 
+			console.log(JSON.stringify(response));
 			UserData.facebook = {
 				authorization : response,
-				
+
 			};
 			$('#status').innerHTML = '<h3>Thanks for logging in, ' + response.name + '!';
 			console.log("Scope in food:" + JSON.stringify(response.id));
@@ -117,10 +117,9 @@ fitnessTracker.controller('facebook', function($scope, $rootScope, $timeout, $di
 			}
 		});
 		// I have to still get the list of friends.
-		FB.api('/me/taggable_friends', function(response) {
-                       console.log(response);
-                       UserData.facebook.taggable = response;
-});
+		FB.api("/me/taggable_friends", function(response) {
+			UserData.facebook.tag = response;
+		});
 
 	};
 });

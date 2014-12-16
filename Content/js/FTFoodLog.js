@@ -174,6 +174,7 @@ fitnessTracker.controller('deleteFoodController', function($scope, $modalInstanc
 });
 
 fitnessTracker.controller('foodLogController', function($scope, $modalInstance, data, UserData) {
+	$scope.friends = UserData.facebook.tag.data;
 	var currentdate = new Date();
 	var hours = currentdate.getHours();
 	var ampm = 'AM';
@@ -181,17 +182,24 @@ fitnessTracker.controller('foodLogController', function($scope, $modalInstance, 
 		hours -= 12;
 		ampm = 'PM';
 	}
-	console.log("Scope in food:" + JSON.stringify(UserData.facebook));
 	$scope.food = data ? data : {
 		Name : '',
 		Servings : 1,
 		Fat : 0,
 		Carbs : 0,
 		Protein : 0,
+		tag : '',
 		Time : (currentdate.getMonth() + 1) + "/" + currentdate.getDate() + "/" + currentdate.getFullYear() + " " + hours + ":" + currentdate.getMinutes() + " " + ampm,
 		UserId : UserData.facebook.authorization.id,
 	};
 
+	$scope.add = function(friend) {
+		if($scope.food.tag == '')
+			$scope.food.tag += friend.name;
+		else 
+			$scope.food.tag += "," + friend.name;	
+	};
+	
 	$scope.cancel = function() {
 		$modalInstance.dismiss('canceled');
 	};

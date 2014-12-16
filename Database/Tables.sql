@@ -27,3 +27,7 @@ CREATE TABLE `FTFoodLog` (
   PRIMARY KEY (`id`),
   KEY `fk_FTFoodLog1_idx` (`UserId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `shahe1_db`.`FTFoodLog` 
+ADD COLUMN `tag` TEXT NULL AFTER `UserId`;

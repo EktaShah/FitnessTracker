@@ -9,52 +9,58 @@
 			<div class="modal-body row">
 				<ng-form name="nameDialog" novalidate role="form" ng-keyup="keyupEvent($event, nameDialog)">
 					<div>
-					    
-					<div class="form-group input-group-sm col-sm-9"
-					ng-class="{ true: 'has-error' }[nameDialog.foodName.$dirty && nameDialog.foodName.$invalid]">
-						<label class="control-label" for="foodName">*Food Name:</label>
-						<input type="text" class="form-control" name="foodName" id="foodName" ng-model="food.Name" required>
-						</input>
-					</div>
-					<div class="form-group input-group-sm col-sm-3"
-					ng-class="{ true: 'has-error' }[nameDialog.servings.$dirty && nameDialog.servings.$invalid]">
-						<label class="control-label" for="servings">*Servings:</label>
-						<input type="number" class="form-control" name="servings" id="servings" ng-model="food.Servings" min="1" max="10000" required>
-						</input>
-					</div>
+
+						<div class="form-group input-group-sm col-sm-9"
+						ng-class="{ true: 'has-error' }[nameDialog.foodName.$dirty && nameDialog.foodName.$invalid]">
+							<label class="control-label" for="foodName">*Food Name:</label>
+							<input type="text" class="form-control" name="foodName" id="foodName" ng-model="food.Name" required>
+							</input>
+						</div>
+						<div class="form-group input-group-sm col-sm-3"
+						ng-class="{ true: 'has-error' }[nameDialog.servings.$dirty && nameDialog.servings.$invalid]">
+							<label class="control-label" for="servings">*Servings:</label>
+							<input type="number" class="form-control" name="servings" id="servings" ng-model="food.Servings" min="1" max="10000" required>
+							</input>
+						</div>
 					</div>
 					<div>
-					<div class="form-group input-group-sm col-md-3"
-					ng-class="{ true: 'has-error' }[nameDialog.calories.$dirty && nameDialog.calories.$invalid]">
-						<label class="control-label" for="calories">*Calories:</label>
-						<input type="text" class="form-control" name="calories" id="calories" 
-						  ng-model="food.Calories" placeholder="0" required>
-						</input>
-					</div>
-					<div class="form-group input-group-sm col-md-3"
-					ng-class="{ true: 'has-error' }[nameDialog.fat.$dirty && nameDialog.fat.$invalid]">
-						<label class="control-label" for="fat">Fat (g):</label>
-						<input type="text" class="form-control" name="fat" id="fat" ng-model="food.Fat" >
-						</input>
-					</div>
-					<div class="form-group input-group-sm col-md-3"
-					ng-class="{ true: 'has-error' }[nameDialog.carbs.$dirty && nameDialog.carbs.$invalid]">
-						<label class="control-label" for="carbs">Carbs (g):</label>
-						<input type="text" class="form-control" name="carbs" id="carbs" ng-model="food.Carbs" >
-						</input>
-					</div>
-					<div class="form-group input-group-sm col-md-3"
-					ng-class="{ true: 'has-error' }[nameDialog.protein.$dirty && nameDialog.protein.$invalid]">
-						<label class="control-label" for="protein">Protein (g):</label>
-						<input type="text" class="form-control" name="Protein" id="protein" ng-model="food.Protein" >
-						</input>
-					</div>
+						<div class="form-group input-group-sm col-md-3"
+						ng-class="{ true: 'has-error' }[nameDialog.calories.$dirty && nameDialog.calories.$invalid]">
+							<label class="control-label" for="calories">*Calories:</label>
+							<input type="text" class="form-control" name="calories" id="calories"
+							ng-model="food.Calories" placeholder="0" required>
+							</input>
+						</div>
+						<div class="form-group input-group-sm col-md-3"
+						ng-class="{ true: 'has-error' }[nameDialog.fat.$dirty && nameDialog.fat.$invalid]">
+							<label class="control-label" for="fat">Fat (g):</label>
+							<input type="text" class="form-control" name="fat" id="fat" ng-model="food.Fat" >
+							</input>
+						</div>
+						<div class="form-group input-group-sm col-md-3"
+						ng-class="{ true: 'has-error' }[nameDialog.carbs.$dirty && nameDialog.carbs.$invalid]">
+							<label class="control-label" for="carbs">Carbs (g):</label>
+							<input type="text" class="form-control" name="carbs" id="carbs" ng-model="food.Carbs" >
+							</input>
+						</div>
+						<div class="form-group input-group-sm col-md-3"
+						ng-class="{ true: 'has-error' }[nameDialog.protein.$dirty && nameDialog.protein.$invalid]">
+							<label class="control-label" for="protein">Protein (g):</label>
+							<input type="text" class="form-control" name="Protein" id="protein" ng-model="food.Protein" >
+							</input>
+						</div>
 					</div>
 					<div class="form-group input-group-sm col-sm-12">
 						<label class="control-label" for="time">Time:</label>
 						<input type="datetime-local" class="form-control" id="time" ng-model="food.Time">
 					</div>
-
+					<div class="form-group input-group-sm col-sm-12">
+						<label class="control-label" for="tag">Tag Friends:</label><br>
+						<select name="cars" multiple>
+							<option value="volvo" ng-repeat="friend in friends" ng-click="add(friend)">{{friend.name}}</option>
+						</select>
+						<input type="select" class="form-control" id="tag" ng-model="food.tag">
+					</div>
 				</ng-form>
 
 			</div>

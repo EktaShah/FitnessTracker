@@ -34,7 +34,7 @@ class Food {
             if (!empty($row['id'])) {
                 $sql = "Update FTFoodLog
                             Set Name='$row2[Name]',Calories='$row2[Calories]',
-                                Fat='$row2[Fat]', Carbs='$row2[Carbs]', Protein='$row2[Protein]', Servings='$row2[Servings]', Time='$row2[Time]'
+                                Fat='$row2[Fat]', Carbs='$row2[Carbs]', Protein='$row2[Protein]', Servings='$row2[Servings]', tag='$row2[tag]', Time='$row2[Time]'
                         WHERE id = $row2[id]
                         ";
             }else{
